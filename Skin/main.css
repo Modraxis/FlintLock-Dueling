@@ -87,7 +87,9 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
 }
 
 .insiderunpanel {
-    background: linear-gradient(-45deg, hsla(var(--Hue), 100%, 60%, 0.1), hsla(0, 100%, 0%, 0.3)) !important;
+    background-image: repeating-linear-gradient(-45deg, hsla(var(--Hue), 100%, 60%, 1) 0, hsla(var(--Hue), 100%, 60%, 0.1) 1px, hsla(0, 100%, 0%, 0.3) 0, hsla(0, 100%, 0%, 0.3) 30%);
+    background-size: 140px 140px;
+    background-color: var(--Dark-color);
 }
 
 .insiderunpanel::before {
@@ -101,6 +103,21 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     background-position: 50% 95%;
 }
 
+.insiderunpanel::after {
+    content: "The skin was created by Modraxis";
+    color: var(--Main-color);
+    text-shadow: 0 0 10px var(--Main-color);
+    display: inline-block;
+    width: 100%;
+    height: max-content;
+    font-family: cursive;
+    user-select: none;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: bold;
+    transform: translateX(40%) translateY(-110%);
+}
+
 #terminal {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -112,13 +129,13 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     padding-bottom: 5px !important;
     color: var(--Main-color) !important;
     font-size: 10pt;
-    background: hsla(var(--Hue), 100%, 4%, 0.85);
+    background: hsla(var(--Hue), 100%, 4%, 0.9);
     box-shadow: none !important;
     border-radius: 35px !important;
     border-left: 2px solid !important;
     border-right: 2px solid !important;
     opacity: 0;
-    animation: open 1s ease-in-out 2s forwards;
+    animation: open 1s linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%) 2s forwards;
 }
 
 @keyframes open {
@@ -214,7 +231,12 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     opacity: 0.9;
     user-select: none;
     transform: translateX(-150%);
+    transition: 0.5s;
     animation: slide 1s linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) 3s forwards;
+}
+
+#fieldview:hover {
+    opacity: 0.4;
 }
 
 @keyframes slide {
@@ -269,27 +291,37 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     color: var(--Main-color) !important;
 }
 
-.centerpanel label,
-.centerpanel a {
-    border-radius: 8px !important;
+select,
+.iconsbar label,
+.iconsbar a {
+    border-radius: 10px !important;
     background: var(--Dark-color) !important;
+    padding: 0 7px;
+    border-bottom: 1px solid transparent !important;
+    transition: 0.5s;
+}
+
+select:hover,
+.iconsbar label:hover,
+.iconsbar a:hover {
+    border-color: var(--Main-color) !important;
 }
 
 select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    font-family: Lato, Sans-Serif;
-    font-size: 1em;
-    padding: 3px 5px;
+    font-family: 'Lato', Sans-Serif;
+    font-size: 16px;
+    padding: 6px 0 !important;
     color: var(--Main-color);
     background: var(--Dark-color);
-    border: 1px solid var(--Main-color);
+    border: none;
     vertical-align: middle;
     outline: none;
-    width: 110px;
-    border-radius: 8px;
+    width: max-content;
     box-sizing: border-box;
+    text-align: center;
 }
 
 select option {
