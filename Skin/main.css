@@ -8,9 +8,14 @@
 
 body,
 html {
-    background: var(--Dark-color) !important;
+    background-color: var(--Dark-color) !important;
     color: var(--Main-color) !important;
     transition: background 0.5s, color 0.5s;
+}
+
+*::selection {
+    color: var(--Dark-color) !important;
+    background: var(--Main-color) !important;
 }
 
 .header {
@@ -21,13 +26,15 @@ html {
     border-bottom: solid 2px var(--Light-color) !important;
     box-shadow: 0 0 30px var(--Main-color) !important;
 }
-body > div.wrapper > div.centerpanel > div.editorpanel,
-body > div.wrapper > div.centerpanel > div.editorpanel > div.iconsbar.editoriconsbar {
-  display: none !important;
+
+body>div.wrapper>div.centerpanel>div.editorpanel,
+body>div.wrapper>div.centerpanel>div.editorpanel>div.iconsbar.editoriconsbar,
+#Console {
+    display: none !important;
 }
 
-body > div.wrapper > div.centerpanel > div.runpanelcontainer {
-  width: 100% !important;
+body>div.wrapper>div.centerpanel>div.runpanelcontainer {
+    width: 100% !important;
 }
 
 .iconsbar.runiconsbar a,
@@ -38,38 +45,114 @@ body > div.wrapper > div.centerpanel > div.runpanelcontainer {
     color: var(--Main-color) !important;
 }
 
+.iconsbar.runiconsbar {
+    user-select: none;
+}
+
 .header div a {
-    font-family: 'Lato', sans-serif !important;
+    display: inline-block !important;
+    font-family: "Lato", sans-serif !important;
     border-radius: 10px !important;
-    font-size: 0.7em !important;
+    font-size: 16px !important;
     color: var(--Main-color) !important;
-    background: transparent !important;
+    background: var(--sec-Dark-color) !important;
+    padding: 6px 10px !important;
+    margin: -10px 10px !important;
+    border: 1px solid transparent !important;
+    transition: 0.5s !important;
 }
 
 .header div a:hover {
-    text-decoration: underline !important;
+    border-color: var(--Main-color) !important;
+}
+
+.sbg-fly-full:before {
+    content: "a" !important;
+    margin-right: 5px !important;
+    font-size: 18px !important;
+}
+
+.sbg-help-full:before {
+    content: "!" !important;
+    margin-right: 5px !important;
+    font-size: 22px !important;
 }
 
 .ace_content {
     border-right: 1px solid var(--sec-Main-color);
 }
 
+#terminal_ingame_log>i[style="color:grey"] {
+    color: var(--sec-Main-color) !important;
+}
+
+.insiderunpanel {
+    background: linear-gradient(-45deg, hsla(var(--Hue), 100%, 60%, 0.1), hsla(0, 100%, 0%, 0.3)) !important;
+}
+
+.insiderunpanel::before {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: url(https://raw.githubusercontent.com/Modraxis/FlintLock-Dueling-NOT-official/main/Resources/img%201.png) no-repeat;
+    background-size: 100% auto;
+    background-attachment: fixed;
+    background-position: 50% 95%;
+}
+
 #terminal {
-    font-family: 'Lato', sans-serif !important;
-    text-align: left;
-    background-color: var(--Dark-color);
-    padding: 20px;
-    color: var(--Main-color);
-    font-family: Monospace;
-    font-size: 10pt;
-    background: var(--sec-Dark-color);
-    box-shadow: 0 0 10px 10px var(--sec-Main-color) inset !important;
-    box-shadow: 0 0 200px 0 var(--sec-Dark-color) inset !important;
-    border-radius: 8px !important;
     display: flex !important;
-    justify-content: center !important;
-    align-items: flex-end !important;
     flex-wrap: wrap !important;
+    justify-content: space-around !important;
+    height: 60% !important;
+    font-family: monospace !important;
+    text-align: left;
+    padding: 20px !important;
+    padding-bottom: 5px !important;
+    color: var(--Main-color) !important;
+    font-size: 10pt;
+    background: hsla(var(--Hue), 100%, 4%, 0.85);
+    box-shadow: none !important;
+    border-radius: 35px !important;
+    border-left: 2px solid !important;
+    border-right: 2px solid !important;
+    opacity: 0;
+    animation: open 1s ease-in-out 2s forwards;
+}
+
+@keyframes open {
+    0% {
+        opacity: 0;
+        transform: scaleX(0.1) translateY(200%);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleX(0.1) translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+#terminal .terminal-wrapper {
+    overflow: auto !important;
+    padding-bottom: 10px !important;
+    opacity: 0;
+    animation: show 0.5s linear 3s forwards;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .cmd .cursor {
@@ -78,11 +161,13 @@ body > div.wrapper > div.centerpanel > div.runpanelcontainer {
     width: 6px !important;
 }
 
-#terminal:hover .cursor {
-    animation: cursor 1s linear infinite;
+.cmd.enabled {
+    .cursor {
+        animation: blink 0.5s linear infinite;
+    }
 }
 
-@keyframes cursor {
+@keyframes blink {
     0% {
         opacity: 0;
     }
@@ -96,17 +181,50 @@ body > div.wrapper > div.centerpanel > div.runpanelcontainer {
     }
 }
 
-.terminal, .cmd, .terminal .terminal-output div div, .cmd .prompt {
-    font-size: 1.25vw !important;
-    line-height: 2vw !important;
+.prompt span {
+    color: transparent !important;
+}
+
+.prompt span:before {
+    content: "®";
+    font-family: SBGlyphs;
+    color: var(--Main-color);
+    position: absolute;
+    font-size: 19px;
+    transform: rotate(90deg);
+    margin: 0.5px 0;
+}
+
+.terminal,
+.cmd,
+.terminal .terminal-output div div,
+.cmd .prompt {
+    line-height: 20px !important;
 }
 
 #fieldview {
     position: absolute !important;
     bottom: 0.8% !important;
     left: 0.4% !important;
-    width: 11% !important;
-    border-radius: 8px !important;
+    width: 15% !important;
+    border-radius: 18px !important;
+    border: 1px solid transparent;
+    background: linear-gradient(0deg, var(--Main-color) -30%, transparent 90%, var(--Main-color));
+    background-clip: border-box;
+    opacity: 0.9;
+    user-select: none;
+    transform: translateX(-150%);
+    animation: slide 1s linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) 3s forwards;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(-150%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
 }
 
 .terminal,
@@ -125,6 +243,7 @@ body > div.wrapper > div.centerpanel > div.runpanelcontainer {
     border-radius: 20px !important;
     box-shadow: none !important;
     background: var(--sec-Main-color) !important;
+    cursor: pointer;
 }
 
 *::-webkit-scrollbar {
@@ -156,14 +275,10 @@ body > div.wrapper > div.centerpanel > div.runpanelcontainer {
     background: var(--Dark-color) !important;
 }
 
-.centerpanel {
-    background: url(https://raw.githubusercontent.com/halcyonXT/project-storage/main/PNG.png) no-repeat;
-    background-size: 110% auto;
-    background-position: 50% 250%;
-    background-attachment: fixed;
-}
-
 select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     font-family: Lato, Sans-Serif;
     font-size: 1em;
     padding: 3px 5px;
@@ -177,20 +292,83 @@ select {
     box-sizing: border-box;
 }
 
+select option {
+    color: var(--Main-color);
+    background: var(--Dark-color);
+}
+
+select option:disabled {
+    color: var(--sec-Main-color) !important;
+    background: var(--Dark-color) !important;
+}
+
+select option:checked {
+    color: var(--Dark-color) !important;
+    background: var(--Main-color) !important;
+}
+
 .terminal-output div a {
-    font-weight: bold !important;
+    display: inline !important;
     color: var(--Main-color) !important;
     background: transparent !important;
     text-decoration: none !important;
+    text-shadow: 0 0 10px var(--Main-color) !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 0 0 25px !important;
+    padding-left: 15px !important;
+    padding-right: 5px !important;
+    transition: 0.5s;
 }
 
 .terminal-output div a:hover {
-    text-decoration: underline !important;
+    border-bottom-color: var(--Main-color) !important;
+
+}
+
+.terminal-output div a::after {
+    content: "I" !important;
+    font-family: SBGlyphs;
+    display: inline-block;
+    color: transparent;
+    margin-left: 8px;
+    transition: 0.5s;
+}
+
+.terminal-output div a:hover::after {
+    color: var(--Main-color);
+    animation: aaa 0.6s linear infinite;
+}
+
+@keyframes aaa {
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+
+    30% {
+        transform: translateX(-3) translateY(3px);
+    }
+
+    70% {
+        transform: translateX(3px) translateY(-3px);
+    }
+
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
 }
 
 .error {
-    font-weight: bold !important;
-    border-bottom: 2px dashed;
+    border-bottom: 2px dashed transparent !important;
+    border-radius: 0 0 0 25px !important;
+    padding-left: 15px !important;
+    padding-right: 5px !important;
+    color: hsl(20, 100%, 60%) !important;
+    text-shadow: 0 0 10px hsl(20, 100%, 60%) !important;
+    transition: 0.5s;
+}
+
+.terminal-output .error:hover {
+    border-bottom-color: hsl(20, 100%, 60%) !important;
 }
 
 [data-tooltip]:before {
@@ -201,6 +379,7 @@ select {
     color: var(--Main-color) !important;
     border: 1px solid var(--Main-color) !important;
     content: attr(data-tooltip) !important;
+    transition: 0.5s !important;
 }
 
 input[type="range"] {
@@ -214,7 +393,14 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-runnable-track {
     width: 200px;
     height: 5px;
-    background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000) !important;
+    background: linear-gradient(to right,
+            #ff0000,
+            #ffff00,
+            #00ff00,
+            #00ffff,
+            #0000ff,
+            #ff00ff,
+            #ff0000) !important;
     border-radius: 5px;
 }
 
