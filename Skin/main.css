@@ -49,6 +49,19 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     user-select: none;
 }
 
+.iconsbar.runiconsbar::before {
+    content: "FlintLock Console";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: max-content;
+    font-weight: bold;
+    color: var(--Main-color);
+    font-family: sans-serif;
+    margin: 0 15px;
+    text-shadow: 0 0 10px var(--Main-color);
+}
+
 .header div a {
     display: inline-block !important;
     font-family: "Lato", sans-serif !important;
@@ -101,6 +114,18 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     background-size: 100% auto;
     background-attachment: fixed;
     background-position: 50% 95%;
+    opacity: 0;
+    animation: showimage 1s linear forwards;
+}
+
+@keyframes showimage {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .insiderunpanel::after {
@@ -108,14 +133,14 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     color: var(--Main-color);
     text-shadow: 0 0 10px var(--Main-color);
     display: inline-block;
-    width: 100%;
+    width: max-content;
     height: max-content;
     font-family: cursive;
     user-select: none;
     text-align: center;
     font-size: 12.5px;
     font-weight: bold;
-    transform: translateX(40%) translateY(-110%);
+    transform: translateX(5%) translateY(-110%);
 }
 
 #terminal {
@@ -130,6 +155,8 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     color: var(--Main-color) !important;
     font-size: 10pt;
     background: hsla(var(--Hue), 100%, 4%, 0.9);
+    margin-top: 0 !important;
+    overflow: hidden !important;
     box-shadow: none !important;
     border-radius: 35px !important;
     border-left: 2px solid !important;
@@ -222,7 +249,7 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
 #fieldview {
     position: absolute !important;
     bottom: 0.8% !important;
-    left: 0.4% !important;
+    right: 0.4% !important;
     width: 15% !important;
     border-radius: 18px !important;
     border: 1px solid transparent;
@@ -230,7 +257,7 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
     background-clip: border-box;
     opacity: 0.9;
     user-select: none;
-    transform: translateX(-150%);
+    transform: translateX(150%);
     transition: 0.5s;
     animation: slide 1s linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%) 3s forwards;
 }
@@ -241,7 +268,7 @@ body>div.wrapper>div.centerpanel>div.runpanelcontainer {
 
 @keyframes slide {
     from {
-        transform: translateX(-150%);
+        transform: translateX(150%);
     }
 
     to {
